@@ -1,4 +1,5 @@
 import 'package:expense_tracker/di/init_get_it.dart';
+import 'package:expense_tracker/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -14,9 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Expense Tracker',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: appTheme,
       home: const Text('Expense Tracker'),
     );
   }
