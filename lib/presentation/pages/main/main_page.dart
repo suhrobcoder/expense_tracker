@@ -1,4 +1,5 @@
 import 'package:expense_tracker/di/init_get_it.dart';
+import 'package:expense_tracker/presentation/pages/home/home_page.dart';
 import 'package:expense_tracker/presentation/pages/main/bloc/main_bloc.dart';
 import 'package:expense_tracker/presentation/theme/colors.dart';
 import 'package:expense_tracker/presentation/theme/ui_constants.dart';
@@ -21,11 +22,11 @@ class MainPage extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 children: [
                   Positioned.fill(
-                    bottom: 72,
+                    bottom: 64,
                     child: IndexedStack(
                       index: state.currentPage,
                       children: const [
-                        SizedBox(),
+                        HomePage(),
                         SizedBox(),
                         SizedBox(),
                         SizedBox(),
@@ -35,46 +36,45 @@ class MainPage extends StatelessWidget {
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
+                      Container(
+                          color: Colors.black12,
+                          height: 1.0,
+                          width: double.infinity),
+                      const SizedBox(height: 7.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          const Divider(thickness: 0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              const SizedBox(width: defaultPadding),
-                              BottomNavItem(
-                                  icon: "assets/icons/home.svg",
-                                  selected: state.currentPage == 0,
-                                  onTap: () => context
-                                      .read<MainBloc>()
-                                      .add(const SelectPageEvent(0))),
-                              BottomNavItem(
-                                  icon: "assets/icons/statistics.svg",
-                                  selected: state.currentPage == 1,
-                                  onTap: () => context
-                                      .read<MainBloc>()
-                                      .add(const SelectPageEvent(1))),
-                              const SizedBox(width: 96),
-                              BottomNavItem(
-                                  icon: "assets/icons/wallet.svg",
-                                  selected: state.currentPage == 2,
-                                  onTap: () => context
-                                      .read<MainBloc>()
-                                      .add(const SelectPageEvent(2))),
-                              BottomNavItem(
-                                  icon: "assets/icons/settings.svg",
-                                  selected: state.currentPage == 3,
-                                  onTap: () => context
-                                      .read<MainBloc>()
-                                      .add(const SelectPageEvent(3))),
-                              const SizedBox(width: defaultPadding),
-                            ],
-                          ),
-                          const SizedBox(height: 8)
+                          const SizedBox(width: defaultPadding),
+                          BottomNavItem(
+                              icon: "assets/icons/home.svg",
+                              selected: state.currentPage == 0,
+                              onTap: () => context
+                                  .read<MainBloc>()
+                                  .add(const SelectPageEvent(0))),
+                          BottomNavItem(
+                              icon: "assets/icons/statistics.svg",
+                              selected: state.currentPage == 1,
+                              onTap: () => context
+                                  .read<MainBloc>()
+                                  .add(const SelectPageEvent(1))),
+                          const SizedBox(width: 96),
+                          BottomNavItem(
+                              icon: "assets/icons/wallet.svg",
+                              selected: state.currentPage == 2,
+                              onTap: () => context
+                                  .read<MainBloc>()
+                                  .add(const SelectPageEvent(2))),
+                          BottomNavItem(
+                              icon: "assets/icons/settings.svg",
+                              selected: state.currentPage == 3,
+                              onTap: () => context
+                                  .read<MainBloc>()
+                                  .add(const SelectPageEvent(3))),
+                          const SizedBox(width: defaultPadding),
                         ],
                       ),
+                      const SizedBox(height: 8)
                     ],
                   ),
                   IconButton(
