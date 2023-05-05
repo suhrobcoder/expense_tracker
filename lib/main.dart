@@ -1,4 +1,5 @@
 import 'package:expense_tracker/di/init_get_it.dart';
+import 'package:expense_tracker/presentation/pages/main/main_page.dart';
 import 'package:expense_tracker/presentation/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Expense Tracker',
       theme: appTheme,
-      home: const Text('Expense Tracker'),
+      home: const MainPage(),
     );
   }
 }
