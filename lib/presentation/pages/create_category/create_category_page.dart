@@ -32,7 +32,7 @@ class CreateCategoryPage extends StatelessWidget {
                         style: textTheme.headlineMedium
                             ?.copyWith(fontWeight: FontWeight.w600),
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 16),
                       ToggleButtons(
                         isSelected: const [true, false, false],
                         onPressed: (index) {},
@@ -151,7 +151,7 @@ class CreateCategoryPage extends StatelessWidget {
             bottom: defaultPadding,
             child: FilledButton(
               onPressed: () {},
-              child: const Text("ADD TRANSACTION"),
+              child: const Text("CREATE CATEGORY"),
             ),
           ),
         ],

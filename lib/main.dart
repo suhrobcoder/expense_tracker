@@ -1,4 +1,5 @@
 import 'package:expense_tracker/di/init_get_it.dart';
+import 'package:expense_tracker/presentation/pages/add_transaction/add_transaction_page.dart';
 import 'package:expense_tracker/presentation/pages/create_category/create_category_page.dart';
 import 'package:expense_tracker/presentation/pages/main/main_page.dart';
 import 'package:expense_tracker/presentation/theme/app_theme.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Expense Tracker',
       theme: appTheme,
-      home: const CreateCategoryPage(),
+      home: const AddTransactionPage(),
     );
   }
 }
