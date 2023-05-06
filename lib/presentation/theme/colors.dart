@@ -11,3 +11,14 @@ const pink = Color(0xFFFF92A4);
 const lightBlue = Color(0xFF5F89FF);
 const blueGreen = Color(0xFF24CDD2);
 const darkGrey = Color(0xFF333333);
+
+const categoryColors = [
+  green,
+  red,
+  orange,
+  yellow,
+  blue,
+  purple,
+  pink,
+  blueGreen,
+];
