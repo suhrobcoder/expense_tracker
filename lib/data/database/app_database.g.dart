@@ -298,6 +298,7 @@ class WalletsCompanion extends UpdateCompanion<Wallet> {
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final $WalletsTable wallets = $WalletsTable(this);
+  late final WalletDao walletDao = WalletDao(this as GeneratedDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
