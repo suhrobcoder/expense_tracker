@@ -1,6 +1,7 @@
 import 'package:expense_tracker/di/init_get_it.dart';
 import 'package:expense_tracker/presentation/pages/home/home_page.dart';
 import 'package:expense_tracker/presentation/pages/main/bloc/main_bloc.dart';
+import 'package:expense_tracker/presentation/pages/statistics/statistics_page.dart';
 import 'package:expense_tracker/presentation/theme/colors.dart';
 import 'package:expense_tracker/presentation/theme/ui_constants.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class MainPage extends StatelessWidget {
                       index: state.currentPage,
                       children: const [
                         HomePage(),
-                        SizedBox(),
+                        StatisticsPage(),
                         SizedBox(),
                         SizedBox(),
                       ],
