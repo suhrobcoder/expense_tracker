@@ -17,6 +17,8 @@ import 'package:expense_tracker/domain/repository/wallet_repository.dart'
     as _i6;
 import 'package:expense_tracker/presentation/pages/main/bloc/main_bloc.dart'
     as _i4;
+import 'package:expense_tracker/presentation/pages/wallets/add_wallet/bloc/add_wallet_bloc.dart'
+    as _i8;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
@@ -36,6 +38,14 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i5.WalletDao>(() => _i5.WalletDao(gh<_i3.AppDatabase>()));
     gh.factory<_i6.WalletRepository>(
         () => _i7.WalletRepositoryImpl(gh<_i5.WalletDao>()));
+    gh.factoryParam<_i8.AddWalletBloc, dynamic, dynamic>((
+      wallet,
+      _,
+    ) =>
+        _i8.AddWalletBloc(
+          gh<_i6.WalletRepository>(),
+          wallet,
+        ));
     return this;
   }
 }

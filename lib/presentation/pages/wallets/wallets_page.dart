@@ -1,3 +1,4 @@
+import 'package:expense_tracker/presentation/pages/wallets/add_wallet/add_wallet_page.dart';
 import 'package:expense_tracker/presentation/theme/colors.dart';
 import 'package:expense_tracker/presentation/theme/ui_constants.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,11 @@ class WalletsPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 ListTile(
-                  onTap: () {},
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddWalletPage()),
+                  ),
                   leading: Container(
                     padding: const EdgeInsets.all(4.0),
                     decoration: BoxDecoration(
