@@ -29,4 +29,10 @@ final appTheme = ThemeData(
     borderRadius: BorderRadius.circular(32.0),
     borderWidth: 0,
   ),
+  listTileTheme: ListTileThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(24.0),
+      side: const BorderSide(width: 1.0),
+    ),
+  ),
 );
