@@ -10,6 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:expense_tracker/data/database/app_database.dart' as _i3;
+import 'package:expense_tracker/data/database/dao/wallet_dao.dart' as _i5;
 import 'package:expense_tracker/presentation/pages/main/bloc/main_bloc.dart'
     as _i4;
 import 'package:get_it/get_it.dart' as _i1;
@@ -28,6 +29,7 @@ extension GetItInjectableX on _i1.GetIt {
     );
     gh.singleton<_i3.AppDatabase>(_i3.AppDatabase());
     gh.factory<_i4.MainBloc>(() => _i4.MainBloc());
+    gh.factory<_i5.WalletDao>(() => _i5.WalletDao(gh<_i3.AppDatabase>()));
     return this;
   }
 }

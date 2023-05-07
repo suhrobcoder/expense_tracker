@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:expense_tracker/data/database/models/wallets.dart';
+import 'package:expense_tracker/domain/entity/wallet_type.dart';
 import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
@@ -13,7 +15,7 @@ const _dbName = "app.db";
 
 @singleton
 @DriftDatabase(
-  tables: [],
+  tables: [Wallets],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
