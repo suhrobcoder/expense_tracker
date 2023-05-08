@@ -7,7 +7,7 @@ part 'wallet_dao.g.dart';
 
 @injectable
 @DriftAccessor(tables: [Wallets])
-class WalletDao extends DatabaseAccessor with _$WalletDaoMixin {
+class WalletDao extends DatabaseAccessor<AppDatabase> with _$WalletDaoMixin {
   WalletDao(AppDatabase database) : super(database);
 
   Future<void> insert(WalletsCompanion wallet) {

@@ -1,7 +1,13 @@
+import 'package:expense_tracker/di/init_get_it.dart';
+import 'package:expense_tracker/domain/entity/wallet_type.dart';
 import 'package:expense_tracker/presentation/pages/wallets/add_wallet/add_wallet_page.dart';
+import 'package:expense_tracker/presentation/pages/wallets/bloc/wallets_bloc.dart';
 import 'package:expense_tracker/presentation/theme/colors.dart';
 import 'package:expense_tracker/presentation/theme/ui_constants.dart';
+import 'package:expense_tracker/presentation/components/enum_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class WalletsPage extends StatelessWidget {
   const WalletsPage({super.key});
@@ -9,144 +15,142 @@ class WalletsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 16),
-                Text(
-                  "Total balance",
-                  style: textTheme.titleMedium,
-                ),
-                Text(
-                  "\$2,600",
-                  style: textTheme.displaySmall?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  "My wallets",
-                  style: textTheme.titleLarge
-                      ?.copyWith(fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 8.0),
-                ListTile(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AddWalletPage()),
-                  ),
-                  leading: Container(
-                    padding: const EdgeInsets.all(4.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: green,
-                    ),
-                    child: const Icon(
-                      Icons.circle,
-                      size: 32,
-                    ),
-                  ),
-                  title: const Text("Monobank account"),
-                  subtitle: const Text("\$1,000"),
-                  trailing:
-                      const Icon(Icons.keyboard_arrow_right_rounded, size: 32),
-                ),
-                const SizedBox(height: 8.0),
-                ListTile(
-                  onTap: () {},
-                  leading: Container(
-                    padding: const EdgeInsets.all(4.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: green,
-                    ),
-                    child: const Icon(
-                      Icons.circle,
-                      size: 32,
-                    ),
-                  ),
-                  title: const Text("Monobank account"),
-                  subtitle: const Text("\$1,000"),
-                  trailing:
-                      const Icon(Icons.keyboard_arrow_right_rounded, size: 32),
-                ),
-                const SizedBox(height: 8.0),
-                ListTile(
-                  onTap: () {},
-                  leading: Container(
-                    padding: const EdgeInsets.all(4.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: green,
-                    ),
-                    child: const Icon(
-                      Icons.circle,
-                      size: 32,
-                    ),
-                  ),
-                  title: const Text("Monobank account"),
-                  subtitle: const Text("\$1,000"),
-                  trailing:
-                      const Icon(Icons.keyboard_arrow_right_rounded, size: 32),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  "Add new wallet",
-                  style: textTheme.titleLarge
-                      ?.copyWith(fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Expanded(
-                      child: AddWalletCard(
-                        title: "Add a bank account",
-                        icon: Icons.circle,
-                        color: green,
-                        onTap: () {},
+    return BlocProvider(
+      create: (context) => getIt<WalletsBloc>(),
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+              child: BlocBuilder<WalletsBloc, WalletsState>(
+                builder: (context, state) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 16),
+                      Text(
+                        "Total balance",
+                        style: textTheme.titleMedium,
                       ),
-                    ),
-                    const SizedBox(width: 8.0),
-                    Expanded(
-                      child: AddWalletCard(
-                        title: "Create new wallet",
-                        icon: Icons.circle,
-                        color: green,
-                        onTap: () {},
+                      Text(
+                        state.totalBalance.toString(),
+                        style: textTheme.displaySmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Expanded(
-                      child: AddWalletCard(
-                        title: "Create an E-Wallet",
-                        icon: Icons.circle,
-                        color: green,
-                        onTap: () {},
+                      const SizedBox(height: 16),
+                      Text(
+                        "My wallets",
+                        style: textTheme.titleLarge
+                            ?.copyWith(fontWeight: FontWeight.w600),
                       ),
-                    ),
-                    const SizedBox(width: 8.0),
-                    Expanded(
-                      child: AddWalletCard(
-                        title: "Add a crypto wallet",
-                        icon: Icons.circle,
-                        color: green,
-                        onTap: () {},
+                      const SizedBox(height: 8.0),
+                      ...state.wallets.map(
+                        (wallet) => ListTile(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AddWalletPage(wallet: wallet)),
+                          ),
+                          leading: Container(
+                            padding: const EdgeInsets.all(6.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              color: green,
+                            ),
+                            child: SvgPicture.asset(
+                              wallet.type.getIcon(),
+                              colorFilter: const ColorFilter.mode(
+                                Colors.white,
+                                BlendMode.srcIn,
+                              ),
+                              width: 32,
+                              height: 32,
+                            ),
+                          ),
+                          title: Text(wallet.name),
+                          subtitle: Text(wallet.currentBalance.toString()),
+                          trailing: const Icon(
+                              Icons.keyboard_arrow_right_rounded,
+                              size: 32),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 24.0),
-              ],
+                      const SizedBox(height: 16),
+                      Text(
+                        "Add new wallet",
+                        style: textTheme.titleLarge
+                            ?.copyWith(fontWeight: FontWeight.w600),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: AddWalletCard(
+                              title: "Add a bank account",
+                              icon: WalletType.bankAccount.getIcon(),
+                              color: WalletType.bankAccount.getColor(),
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AddWalletPage()),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8.0),
+                          Expanded(
+                            child: AddWalletCard(
+                              title: "Create new wallet",
+                              icon: WalletType.cash.getIcon(),
+                              color: WalletType.cash.getColor(),
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AddWalletPage()),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: AddWalletCard(
+                              title: "Create an E-Wallet",
+                              icon: WalletType.eWallet.getIcon(),
+                              color: WalletType.eWallet.getColor(),
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AddWalletPage()),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8.0),
+                          Expanded(
+                            child: AddWalletCard(
+                              title: "Add a crypto wallet",
+                              icon: WalletType.crypto.getIcon(),
+                              color: WalletType.crypto.getColor(),
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AddWalletPage()),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 24.0),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -165,7 +169,7 @@ class AddWalletCard extends StatelessWidget {
   });
 
   final String title;
-  final IconData icon;
+  final String icon;
   final Color color;
   final VoidCallback onTap;
 
@@ -185,15 +189,17 @@ class AddWalletCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.all(4.0),
+              padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.0),
                 color: color,
               ),
-              child: Icon(
+              child: SvgPicture.asset(
                 icon,
-                size: 32,
-                color: Colors.white,
+                colorFilter:
+                    const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                width: 32,
+                height: 32,
               ),
             ),
             const SizedBox(height: 4.0),

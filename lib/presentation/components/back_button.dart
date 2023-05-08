@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class CustomBackButton extends StatelessWidget {
   const CustomBackButton({
     super.key,
-    required this.onTap,
+    this.onTap,
   });
 
-  final void Function() onTap;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: onTap ?? () => Navigator.pop(context),
       borderRadius: BorderRadius.circular(16),
       child: Container(
         padding: const EdgeInsets.all(8),

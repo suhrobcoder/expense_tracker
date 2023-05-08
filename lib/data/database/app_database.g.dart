@@ -107,105 +107,6 @@ class $WalletsTable extends Wallets with TableInfo<$WalletsTable, Wallet> {
       const EnumNameConverter<WalletType>(WalletType.values);
 }
 
-class Wallet extends DataClass implements Insertable<Wallet> {
-  final int id;
-  final String name;
-  final WalletType type;
-  final String currency;
-  final double initialBalance;
-  const Wallet(
-      {required this.id,
-      required this.name,
-      required this.type,
-      required this.currency,
-      required this.initialBalance});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['name'] = Variable<String>(name);
-    {
-      final converter = $WalletsTable.$convertertype;
-      map['type'] = Variable<String>(converter.toSql(type));
-    }
-    map['currency'] = Variable<String>(currency);
-    map['initial_balance'] = Variable<double>(initialBalance);
-    return map;
-  }
-
-  WalletsCompanion toCompanion(bool nullToAbsent) {
-    return WalletsCompanion(
-      id: Value(id),
-      name: Value(name),
-      type: Value(type),
-      currency: Value(currency),
-      initialBalance: Value(initialBalance),
-    );
-  }
-
-  factory Wallet.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Wallet(
-      id: serializer.fromJson<int>(json['id']),
-      name: serializer.fromJson<String>(json['name']),
-      type: $WalletsTable.$convertertype
-          .fromJson(serializer.fromJson<String>(json['type'])),
-      currency: serializer.fromJson<String>(json['currency']),
-      initialBalance: serializer.fromJson<double>(json['initialBalance']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'name': serializer.toJson<String>(name),
-      'type':
-          serializer.toJson<String>($WalletsTable.$convertertype.toJson(type)),
-      'currency': serializer.toJson<String>(currency),
-      'initialBalance': serializer.toJson<double>(initialBalance),
-    };
-  }
-
-  Wallet copyWith(
-          {int? id,
-          String? name,
-          WalletType? type,
-          String? currency,
-          double? initialBalance}) =>
-      Wallet(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        type: type ?? this.type,
-        currency: currency ?? this.currency,
-        initialBalance: initialBalance ?? this.initialBalance,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('Wallet(')
-          ..write('id: $id, ')
-          ..write('name: $name, ')
-          ..write('type: $type, ')
-          ..write('currency: $currency, ')
-          ..write('initialBalance: $initialBalance')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, name, type, currency, initialBalance);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Wallet &&
-          other.id == this.id &&
-          other.name == this.name &&
-          other.type == this.type &&
-          other.currency == this.currency &&
-          other.initialBalance == this.initialBalance);
-}
-
 class WalletsCompanion extends UpdateCompanion<Wallet> {
   final Value<int> id;
   final Value<String> name;
@@ -298,7 +199,6 @@ class WalletsCompanion extends UpdateCompanion<Wallet> {
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   late final $WalletsTable wallets = $WalletsTable(this);
-  late final WalletDao walletDao = WalletDao(this as GeneratedDatabase);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();

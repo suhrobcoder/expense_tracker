@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:expense_tracker/data/database/dao/wallet_dao.dart';
 import 'package:expense_tracker/data/database/models/wallets.dart';
 import 'package:expense_tracker/domain/entity/wallet_type.dart';
 import 'package:injectable/injectable.dart';
@@ -15,10 +14,7 @@ const _dbVersion = 1;
 const _dbName = "app.db";
 
 @singleton
-@DriftDatabase(
-  tables: [Wallets],
-  daos: [WalletDao],
-)
+@DriftDatabase(tables: [Wallets])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 

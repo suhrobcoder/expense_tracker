@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:expense_tracker/data/database/app_database.dart';
+import 'package:expense_tracker/data/database/models/wallets.dart';
 import 'package:expense_tracker/domain/entity/currency.dart';
 import 'package:expense_tracker/domain/entity/wallet_type.dart';
 import 'package:expense_tracker/domain/repository/wallet_repository.dart';

@@ -1,4 +1,4 @@
-import 'package:expense_tracker/data/database/app_database.dart';
+import 'package:expense_tracker/data/database/models/wallets.dart';
 
 abstract class WalletRepository {
   Future<void> insert(Wallet wallet);
