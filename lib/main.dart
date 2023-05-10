@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Expense Tracker',
       theme: appTheme,
-      home: const MainPage(),
+      home: const CreateCategoryPage(),
     );
   }
 }

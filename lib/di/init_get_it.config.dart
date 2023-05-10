@@ -11,22 +11,24 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:expense_tracker/data/database/app_database.dart' as _i3;
 import 'package:expense_tracker/data/database/dao/category_dao.dart' as _i4;
-import 'package:expense_tracker/data/database/dao/wallet_dao.dart' as _i8;
-import 'package:expense_tracker/data/database/models/wallets.dart' as _i13;
+import 'package:expense_tracker/data/database/dao/wallet_dao.dart' as _i9;
+import 'package:expense_tracker/data/database/models/wallets.dart' as _i14;
 import 'package:expense_tracker/data/repository/category_repository_impl.dart'
     as _i6;
 import 'package:expense_tracker/data/repository/wallet_repository_impl.dart'
-    as _i10;
+    as _i11;
 import 'package:expense_tracker/domain/repository/category_repository.dart'
     as _i5;
 import 'package:expense_tracker/domain/repository/wallet_repository.dart'
-    as _i9;
-import 'package:expense_tracker/presentation/pages/main/bloc/main_bloc.dart'
+    as _i10;
+import 'package:expense_tracker/presentation/pages/create_category/bloc/create_category_bloc.dart'
     as _i7;
+import 'package:expense_tracker/presentation/pages/main/bloc/main_bloc.dart'
+    as _i8;
 import 'package:expense_tracker/presentation/pages/wallets/add_wallet/bloc/add_wallet_bloc.dart'
-    as _i12;
+    as _i13;
 import 'package:expense_tracker/presentation/pages/wallets/bloc/wallets_bloc.dart'
-    as _i11;
+    as _i12;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
@@ -45,18 +47,26 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i4.CategoryDao>(() => _i4.CategoryDao(gh<_i3.AppDatabase>()));
     gh.factory<_i5.CategoryRepository>(
         () => _i6.CategoryRepositoryImpl(gh<_i4.CategoryDao>()));
-    gh.factory<_i7.MainBloc>(() => _i7.MainBloc());
-    gh.factory<_i8.WalletDao>(() => _i8.WalletDao(gh<_i3.AppDatabase>()));
-    gh.factory<_i9.WalletRepository>(
-        () => _i10.WalletRepositoryImpl(gh<_i8.WalletDao>()));
-    gh.factory<_i11.WalletsBloc>(
-        () => _i11.WalletsBloc(gh<_i9.WalletRepository>()));
-    gh.factoryParam<_i12.AddWalletBloc, _i13.Wallet?, dynamic>((
+    gh.factoryParam<_i7.CreateCategoryBloc, dynamic, dynamic>((
+      category,
+      _,
+    ) =>
+        _i7.CreateCategoryBloc(
+          gh<_i5.CategoryRepository>(),
+          category,
+        ));
+    gh.factory<_i8.MainBloc>(() => _i8.MainBloc());
+    gh.factory<_i9.WalletDao>(() => _i9.WalletDao(gh<_i3.AppDatabase>()));
+    gh.factory<_i10.WalletRepository>(
+        () => _i11.WalletRepositoryImpl(gh<_i9.WalletDao>()));
+    gh.factory<_i12.WalletsBloc>(
+        () => _i12.WalletsBloc(gh<_i10.WalletRepository>()));
+    gh.factoryParam<_i13.AddWalletBloc, _i14.Wallet?, dynamic>((
       wallet,
       _,
     ) =>
-        _i12.AddWalletBloc(
-          gh<_i9.WalletRepository>(),
+        _i13.AddWalletBloc(
+          gh<_i10.WalletRepository>(),
           wallet,
         ));
     return this;
