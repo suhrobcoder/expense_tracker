@@ -14,7 +14,7 @@ class NonScrollableGridview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final rowCount = (children.length - 1) ~/ crossAxisCount + 1;
+    int rowCount = (children.length - 1) ~/ crossAxisCount + 1;
     return Column(
       children: List.generate(
         rowCount,
@@ -22,6 +22,9 @@ class NonScrollableGridview extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(crossAxisCount, (j) {
             final index = i * crossAxisCount + j;
+            if (index >= children.length) {
+              return const SizedBox(width: 48.0);
+            }
             return Padding(
                 padding: EdgeInsets.only(top: i == 0 ? 0 : verticalSpacing),
                 child: children[index]);

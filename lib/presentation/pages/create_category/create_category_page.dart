@@ -6,7 +6,6 @@ import 'package:expense_tracker/presentation/components/icons.dart';
 import 'package:expense_tracker/presentation/components/validators.dart';
 import 'package:expense_tracker/presentation/pages/create_category/bloc/create_category_bloc.dart';
 import 'package:expense_tracker/presentation/pages/create_category/color_picker.dart';
-import 'package:expense_tracker/presentation/theme/colors.dart';
 import 'package:expense_tracker/presentation/theme/ui_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +30,13 @@ class CreateCategoryPage extends StatelessWidget {
                   child: Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: defaultPadding),
-                    child: BlocBuilder<CreateCategoryBloc, CreateCategoryState>(
+                    child:
+                        BlocConsumer<CreateCategoryBloc, CreateCategoryState>(
+                      listener: (context, state) {
+                        if (state.added) {
+                          Navigator.pop(context);
+                        }
+                      },
                       builder: (context, state) {
                         return Form(
                           key: state.formKey,

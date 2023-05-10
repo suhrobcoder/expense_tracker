@@ -7,6 +7,7 @@ class CreateCategoryState extends Equatable {
     required this.selectedType,
     required this.iconPath,
     required this.color,
+    required this.added,
   });
 
   final GlobalKey<FormState> formKey;
@@ -14,6 +15,7 @@ class CreateCategoryState extends Equatable {
   final CategoryType selectedType;
   final String iconPath;
   final Color color;
+  final bool added;
 
   factory CreateCategoryState.initial(Category? category) {
     return CreateCategoryState(
@@ -22,6 +24,7 @@ class CreateCategoryState extends Equatable {
       selectedType: CategoryType.values.first,
       iconPath: icons.first,
       color: categoryColors.first,
+      added: false,
     );
   }
 
@@ -29,6 +32,7 @@ class CreateCategoryState extends Equatable {
     CategoryType? selectedType,
     String? iconPath,
     Color? color,
+    bool? added,
   }) {
     return CreateCategoryState(
       formKey: formKey,
@@ -36,9 +40,10 @@ class CreateCategoryState extends Equatable {
       selectedType: selectedType ?? this.selectedType,
       iconPath: iconPath ?? this.iconPath,
       color: color ?? this.color,
+      added: added ?? this.added,
     );
   }
 
   @override
-  List<Object> get props => [selectedType, iconPath, color];
+  List<Object> get props => [selectedType, iconPath, color, added];
 }

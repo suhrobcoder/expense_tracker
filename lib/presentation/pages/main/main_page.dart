@@ -1,4 +1,5 @@
 import 'package:expense_tracker/di/init_get_it.dart';
+import 'package:expense_tracker/presentation/pages/add_transaction/add_transaction_page.dart';
 import 'package:expense_tracker/presentation/pages/home/home_page.dart';
 import 'package:expense_tracker/presentation/pages/main/bloc/main_bloc.dart';
 import 'package:expense_tracker/presentation/pages/statistics/statistics_page.dart';
@@ -80,7 +81,11 @@ class MainPage extends StatelessWidget {
                     ],
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddTransactionPage()),
+                    ),
                     icon: Container(
                       padding: const EdgeInsets.all(16),
                       decoration: const ShapeDecoration(

@@ -39,10 +39,11 @@ class CreateCategoryBloc
           type: state.selectedType,
         );
         if (category == null) {
-          repository.insert(newCategory);
+          await repository.insert(newCategory);
         } else {
-          repository.update(newCategory);
+          await repository.update(newCategory);
         }
+        emit(state.copyWith(added: true));
       }
     });
   }

@@ -2,7 +2,7 @@ part of 'main_bloc.dart';
 
 class MainState extends Equatable {
   const MainState({
-    this.currentPage = 2,
+    this.currentPage = 0,
   });
 
   final int currentPage;

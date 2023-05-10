@@ -4,7 +4,7 @@ import 'package:expense_tracker/data/database/app_database.dart';
 import 'package:expense_tracker/domain/repository/transaction_repository.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable
+@Injectable(as: TransactionRepository)
 class TransactionRepositoryImpl extends TransactionRepository {
   final TransactionDao dao;
 
