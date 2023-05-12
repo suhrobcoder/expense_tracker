@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:expense_tracker/data/database/models/transactions.dart';
 import 'package:expense_tracker/domain/repository/category_repository.dart';
 import 'package:expense_tracker/domain/repository/transaction_repository.dart';
 import 'package:expense_tracker/domain/repository/wallet_repository.dart';

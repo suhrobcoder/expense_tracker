@@ -1,4 +1,5 @@
 import 'package:expense_tracker/data/database/dao/transaction_dao.dart';
+import 'package:expense_tracker/data/database/models/transactions.dart';
 import 'package:expense_tracker/domain/entity/category_type.dart';
 import 'package:expense_tracker/data/database/app_database.dart';
 import 'package:expense_tracker/domain/repository/transaction_repository.dart';
@@ -16,7 +17,7 @@ class TransactionRepositoryImpl extends TransactionRepository {
   }
 
   @override
-  Stream<List<Transaction>> allTransaction({required CategoryType type}) {
+  Stream<List<Transaction>> allTransaction({required CategoryType? type}) {
     return dao.allTransactions(type: type);
   }
 

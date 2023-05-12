@@ -1,6 +1,7 @@
 import 'package:expense_tracker/presentation/pages/home/stat_card.dart';
-import 'package:expense_tracker/presentation/pages/home/transaction_tile.dart';
+import 'package:expense_tracker/presentation/components/transaction_tile.dart';
 import 'package:expense_tracker/presentation/pages/home/wallet_card.dart';
+import 'package:expense_tracker/presentation/pages/transactions/transactions_page.dart';
 import 'package:expense_tracker/presentation/theme/colors.dart';
 import 'package:expense_tracker/presentation/theme/ui_constants.dart';
 import 'package:flutter/material.dart';
@@ -146,6 +147,11 @@ class HomePage extends StatelessWidget {
                   style: textTheme.titleMedium?.copyWith(fontSize: 20.0),
                 ),
                 GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const TransactionsPage()),
+                  ),
                   child: Row(
                     children: [
                       Text(
@@ -167,7 +173,7 @@ class HomePage extends StatelessWidget {
                 title: "Subway",
                 category: "Transport",
                 amount: "-\$9.00",
-                icon: Icons.circle,
+                icon: "assets/icons/home.svg",
                 color: green,
                 onTap: () {},
               ),
