@@ -30,6 +30,8 @@ import 'package:expense_tracker/presentation/pages/add_transaction/bloc/add_tran
     as _i17;
 import 'package:expense_tracker/presentation/pages/create_category/bloc/create_category_bloc.dart'
     as _i7;
+import 'package:expense_tracker/presentation/pages/home/bloc/home_bloc.dart'
+    as _i20;
 import 'package:expense_tracker/presentation/pages/main/bloc/main_bloc.dart'
     as _i8;
 import 'package:expense_tracker/presentation/pages/transactions/bloc/transactions_bloc.dart'
@@ -88,6 +90,10 @@ extension GetItInjectableX on _i1.GetIt {
         _i18.AddWalletBloc(
           gh<_i14.WalletRepository>(),
           wallet,
+        ));
+    gh.factory<_i20.HomeBloc>(() => _i20.HomeBloc(
+          gh<_i10.TransactionRepository>(),
+          gh<_i14.WalletRepository>(),
         ));
     return this;
   }

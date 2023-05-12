@@ -16,7 +16,7 @@ class Wallet {
   final WalletType type;
   final String currency;
   final double initialBalance;
-  final double currentBalance;
+  double currentBalance;
 
   Wallet({
     required this.id,

@@ -1,5 +1,6 @@
 import 'package:expense_tracker/presentation/theme/ui_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class WalletCard extends StatelessWidget {
   const WalletCard({
@@ -13,7 +14,7 @@ class WalletCard extends StatelessWidget {
 
   final String title;
   final String balance;
-  final IconData icon;
+  final String icon;
   final Color color;
   final void Function() onTap;
 
@@ -34,15 +35,17 @@ class WalletCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.all(defaultPadding / 3),
+              padding: const EdgeInsets.all(defaultPadding / 2),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(defaultPadding),
                 color: color,
               ),
-              child: Icon(
+              child: SvgPicture.asset(
                 icon,
-                color: Colors.white,
-                size: 40,
+                width: 32,
+                height: 32,
+                colorFilter:
+                    const ColorFilter.mode(Colors.white, BlendMode.srcIn),
               ),
             ),
             Text(

@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:expense_tracker/core/list_extensions.dart';
 import 'package:expense_tracker/data/database/app_database.dart';
 import 'package:expense_tracker/data/database/models/transactions.dart';
 import 'package:expense_tracker/data/database/models/categories.dart';
@@ -41,9 +42,37 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
   }
 
   Stream<List<Transaction>> latestTransactions() {
-    return (select(transactions)
+    return ((select(transactions).join([
+      innerJoin(categories, categories.id.equalsExp(transactions.id)),
+    ]))
           ..limit(5)
-          ..orderBy([(u) => OrderingTerm.desc(u.date)]))
+          ..orderBy([OrderingTerm.desc(transactions.date)]))
+        .map((row) =>
+            row.readTable(transactions)..category = row.readTable(categories))
         .watch();
+  }
+
+  Stream<double> incomes() {
+    return (select(transactions).addColumns([transactions.amount.sum()])
+          ..where(transactions.type.equals(CategoryType.income.name)))
+        .map((row) => row.read(transactions.amount.sum()))
+        .watch()
+        .map((event) => event.sumOf((i) => i ?? 0.0));
+  }
+
+  Stream<double> expenses() {
+    return (select(transactions).addColumns([transactions.amount.sum()])
+          ..where(transactions.type.equals(CategoryType.expense.name)))
+        .map((row) => row.read(transactions.amount.sum()))
+        .watch()
+        .map((event) => event.sumOf((i) => i ?? 0.0));
+  }
+
+  Stream<double> savings() {
+    return (select(transactions).addColumns([transactions.amount.sum()])
+          ..where(transactions.type.equals(CategoryType.saving.name)))
+        .map((row) => row.read(transactions.amount.sum()))
+        .watch()
+        .map((event) => event.sumOf((i) => i ?? 0.0));
   }
 }

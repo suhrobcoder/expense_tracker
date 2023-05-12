@@ -26,6 +26,21 @@ class TransactionRepositoryImpl extends TransactionRepository {
     return dao.latestTransactions();
   }
 
+  @override
+  Stream<double> incomes() {
+    return dao.incomes();
+  }
+
+  @override
+  Stream<double> expenses() {
+    return dao.expenses();
+  }
+
+  @override
+  Stream<double> savings() {
+    return dao.savings();
+  }
+
   TransactionsCompanion _mapTransaction(Transaction transaction) {
     return TransactionsCompanion.insert(
       name: transaction.name,

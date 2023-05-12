@@ -1,12 +1,13 @@
 import 'package:drift/drift.dart';
 import 'package:expense_tracker/data/database/app_database.dart';
+import 'package:expense_tracker/data/database/models/transactions.dart';
 import 'package:expense_tracker/data/database/models/wallets.dart';
 import 'package:injectable/injectable.dart';
 
 part 'wallet_dao.g.dart';
 
 @injectable
-@DriftAccessor(tables: [Wallets])
+@DriftAccessor(tables: [Wallets, Transactions])
 class WalletDao extends DatabaseAccessor<AppDatabase> with _$WalletDaoMixin {
   WalletDao(super.attachedDatabase);
 
@@ -23,6 +24,13 @@ class WalletDao extends DatabaseAccessor<AppDatabase> with _$WalletDaoMixin {
   }
 
   Stream<List<Wallet>> watchWallets() {
-    return select(wallets).watch();
+    return select(wallets)
+        .addColumns([transactions.amount.sum()])
+        .join([
+          innerJoin(transactions, transactions.walletId.equalsExp(wallets.id))
+        ])
+        .map((row) => row.readTable(wallets)
+          ..currentBalance = row.read(transactions.amount.sum()) ?? -1.0)
+        .watch();
   }
 }
