@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:expense_tracker/data/database/app_database.dart';
 import 'package:expense_tracker/data/database/models/categories.dart';
 import 'package:expense_tracker/data/database/models/wallets.dart';
 
@@ -18,6 +19,7 @@ class Budget {
   final int walletId;
   final int categoryId;
   double currentUse;
+  Category? category;
 
   Budget({
     required this.id,
@@ -26,5 +28,6 @@ class Budget {
     required this.walletId,
     required this.categoryId,
     this.currentUse = -1.0,
+    this.category,
   });
 }
