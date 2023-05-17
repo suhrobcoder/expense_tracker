@@ -4,7 +4,7 @@ import 'package:expense_tracker/data/database/models/budgets.dart';
 import 'package:expense_tracker/domain/repository/budget_repository.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable
+@Injectable(as: BudgetRepository)
 class BudgetRepositoryImpl extends BudgetRepository {
   final BudgetDao dao;
 

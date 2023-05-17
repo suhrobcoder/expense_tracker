@@ -1,5 +1,6 @@
 import 'package:expense_tracker/di/init_get_it.dart';
 import 'package:expense_tracker/presentation/components/enum_extensions.dart';
+import 'package:expense_tracker/presentation/pages/budgets/budgets_page.dart';
 import 'package:expense_tracker/presentation/pages/home/bloc/home_bloc.dart';
 import 'package:expense_tracker/presentation/pages/home/stat_card.dart';
 import 'package:expense_tracker/presentation/components/transaction_tile.dart';
@@ -102,7 +103,11 @@ class HomePage extends StatelessWidget {
                             balance: state.budget.toString(),
                             icon: Icons.circle,
                             color: green,
-                            onTap: () {},
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const BudgetsPage()),
+                            ),
                           ),
                         ),
                         const SizedBox(width: defaultPadding),

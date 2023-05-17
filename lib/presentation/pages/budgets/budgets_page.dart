@@ -1,4 +1,5 @@
 import 'package:expense_tracker/presentation/components/back_button.dart';
+import 'package:expense_tracker/presentation/pages/budgets/add_budget/add_budget_page.dart';
 import 'package:expense_tracker/presentation/pages/budgets/budget_tile.dart';
 import 'package:expense_tracker/presentation/theme/colors.dart';
 import 'package:expense_tracker/presentation/theme/ui_constants.dart';
@@ -94,7 +95,10 @@ class BudgetsPage extends StatelessWidget {
             right: defaultPadding,
             bottom: defaultPadding,
             child: FilledButton(
-              onPressed: () {},
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AddBudgetPage()),
+              ),
               child: const Text("CREATE A NEW BUDGET"),
             ),
           ),

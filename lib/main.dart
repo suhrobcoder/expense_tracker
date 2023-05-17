@@ -1,5 +1,5 @@
 import 'package:expense_tracker/di/init_get_it.dart';
-import 'package:expense_tracker/presentation/pages/add_budget/add_budget_page.dart';
+import 'package:expense_tracker/presentation/pages/budgets/add_budget/add_budget_page.dart';
 import 'package:expense_tracker/presentation/pages/add_transaction/add_transaction_page.dart';
 import 'package:expense_tracker/presentation/pages/budgets/budgets_page.dart';
 import 'package:expense_tracker/presentation/pages/create_category/create_category_page.dart';
