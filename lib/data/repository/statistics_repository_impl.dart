@@ -1,6 +1,7 @@
 import 'package:expense_tracker/data/database/dao/statistics_dao.dart';
 import 'package:expense_tracker/data/database/models/categories.dart';
 import 'package:expense_tracker/data/database/models/stat_data.dart';
+import 'package:expense_tracker/domain/entity/category_type.dart';
 import 'package:expense_tracker/domain/repository/statistics_repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -16,7 +17,8 @@ class StatisticsRepositoryImpl extends StatisticsRepository {
   }
 
   @override
-  Future<List<Category>> getCategoriesWithTransactionCount() {
-    return dao.getCategoriesWithTransactionCount();
+  Future<List<Category>> getCategoriesWithTransactionCount(
+      {required CategoryType type}) {
+    return dao.getCategoriesWithTransactionCount(type: type);
   }
 }

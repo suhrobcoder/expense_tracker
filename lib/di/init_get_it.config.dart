@@ -132,8 +132,14 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i18.TransactionRepository>(),
           gh<_i22.WalletRepository>(),
         ));
-    gh.factory<_i31.StatisticsBloc>(
-        () => _i31.StatisticsBloc(gh<_i15.StatisticsRepository>()));
+    gh.factoryParam<_i31.StatisticsBloc, bool, dynamic>((
+      isBarChart,
+      _,
+    ) =>
+        _i31.StatisticsBloc(
+          gh<_i15.StatisticsRepository>(),
+          isBarChart,
+        ));
     return this;
   }
 }

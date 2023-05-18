@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:expense_tracker/core/list_extensions.dart';
 import 'package:expense_tracker/data/database/models/categories.dart';
+import 'package:expense_tracker/domain/entity/category_type.dart';
 import 'package:expense_tracker/domain/repository/statistics_repository.dart';
 import 'package:expense_tracker/presentation/theme/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -15,7 +16,10 @@ part 'statistics_state.dart';
 class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
   final StatisticsRepository statisticsRepository;
 
-  StatisticsBloc(this.statisticsRepository) : super(StatisticsState.initial()) {
+  final bool isBarChart;
+
+  StatisticsBloc(this.statisticsRepository, @factoryParam this.isBarChart)
+      : super(StatisticsState.initial()) {
     on<LoadStatistics>((event, emit) async {
       final stats = await statisticsRepository.getStatistics();
       final barGroups = stats
@@ -41,14 +45,19 @@ class StatisticsBloc extends Bloc<StatisticsEvent, StatisticsState> {
       emit(state.copyWith(barGroups: barGroups, bottomTitles: bottomTitles));
     });
     on<LoadCategories>((event, emit) async {
-      final categories =
-          await statisticsRepository.getCategoriesWithTransactionCount();
-      print(categories);
+      final categories = await statisticsRepository
+          .getCategoriesWithTransactionCount(type: state.type);
       emit(state.copyWith(
           categories: categories,
           fullAmount: categories.sumOf((it) => it.amount)));
     });
-    add(LoadStatistics());
+    on<SelectType>((event, emit) {
+      emit(state.copyWith(type: event.type));
+      add(LoadCategories());
+    });
+    if (isBarChart) {
+      add(LoadStatistics());
+    }
     add(LoadCategories());
   }
 }

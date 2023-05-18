@@ -36,7 +36,8 @@ class StatisticsDao extends DatabaseAccessor<AppDatabase>
     }).toList();
   }
 
-  Future<List<Category>> getCategoriesWithTransactionCount() {
+  Future<List<Category>> getCategoriesWithTransactionCount(
+      {required CategoryType type}) {
     return (select(categories).addColumns([
       transactions.id.count(),
       transactions.amount.sum(),
@@ -44,6 +45,7 @@ class StatisticsDao extends DatabaseAccessor<AppDatabase>
       leftOuterJoin(
           transactions, transactions.categoryId.equalsExp(categories.id)),
     ])
+          ..where(categories.type.equals(type.name))
           ..groupBy([categories.id]))
         .map((row) => row.readTable(categories)
           ..transactionCount = row.read(transactions.id.count()) ?? 0

@@ -1,7 +1,7 @@
 import 'package:expense_tracker/di/init_get_it.dart';
 import 'package:expense_tracker/presentation/pages/statistics/bloc/statistics_bloc.dart';
 import 'package:expense_tracker/presentation/pages/statistics/category_tile.dart';
-import 'package:expense_tracker/presentation/theme/colors.dart';
+import 'package:expense_tracker/presentation/pages/statistics/detailed_analytics/detailed_analytics_page.dart';
 import 'package:expense_tracker/presentation/theme/ui_constants.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class StatisticsPage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
     return BlocProvider(
-      create: (context) => getIt<StatisticsBloc>(),
+      create: (context) => getIt<StatisticsBloc>(param1: true),
       child: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
@@ -70,7 +70,11 @@ class StatisticsPage extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: FilledButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const DetailedAnalyticsPage())),
                         style: ButtonStyle(
                             backgroundColor:
                                 MaterialStatePropertyAll(colorScheme.primary),
