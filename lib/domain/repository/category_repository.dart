@@ -1,4 +1,4 @@
-import 'package:expense_tracker/data/database/app_database.dart';
+import 'package:expense_tracker/data/database/models/categories.dart';
 
 abstract class CategoryRepository {
   Future<void> insert(Category category);

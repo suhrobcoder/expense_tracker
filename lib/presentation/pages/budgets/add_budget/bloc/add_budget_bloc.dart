@@ -5,7 +5,7 @@ import 'package:expense_tracker/domain/repository/category_repository.dart';
 import 'package:expense_tracker/domain/repository/wallet_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:expense_tracker/data/database/app_database.dart';
+import 'package:expense_tracker/data/database/models/categories.dart';
 import 'package:expense_tracker/data/database/models/budgets.dart';
 import 'package:expense_tracker/data/database/models/wallets.dart';
 import 'package:flutter/material.dart';

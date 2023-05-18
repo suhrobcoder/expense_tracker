@@ -24,13 +24,13 @@ class WalletDao extends DatabaseAccessor<AppDatabase> with _$WalletDaoMixin {
   }
 
   Stream<List<Wallet>> watchWallets() {
-    return select(wallets)
-        .addColumns([transactions.amount.sum()])
-        .join([
-          innerJoin(transactions, transactions.walletId.equalsExp(wallets.id))
-        ])
-        .map((row) => row.readTable(wallets)
-          ..currentBalance = row.read(transactions.amount.sum()) ?? -1.0)
-        .watch();
+    return select(wallets).addColumns([transactions.amount.sum()]).join([
+      leftOuterJoin(transactions, transactions.walletId.equalsExp(wallets.id))
+    ]).map((row) {
+      final wallet = row.readTable(wallets);
+      wallet.currentBalance =
+          row.read(transactions.amount.sum()) ?? 0 + wallet.initialBalance;
+      return wallet;
+    }).watch();
   }
 }

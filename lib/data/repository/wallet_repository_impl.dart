@@ -1,4 +1,5 @@
 import 'package:expense_tracker/data/database/app_database.dart';
+import 'package:expense_tracker/data/database/models/categories.dart';
 import 'package:expense_tracker/data/database/dao/wallet_dao.dart';
 import 'package:expense_tracker/data/database/models/wallets.dart';
 import 'package:expense_tracker/domain/repository/wallet_repository.dart';

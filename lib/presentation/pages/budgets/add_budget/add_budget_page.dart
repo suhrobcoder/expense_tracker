@@ -1,4 +1,4 @@
-import 'package:expense_tracker/data/database/app_database.dart';
+import 'package:expense_tracker/data/database/models/categories.dart';
 import 'package:expense_tracker/data/database/models/budgets.dart';
 import 'package:expense_tracker/data/database/models/wallets.dart';
 import 'package:expense_tracker/di/init_get_it.dart';

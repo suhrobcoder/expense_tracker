@@ -1,5 +1,5 @@
 import 'package:expense_tracker/core/map_extensions.dart';
-import 'package:expense_tracker/data/database/app_database.dart';
+import 'package:expense_tracker/data/database/models/categories.dart';
 import 'package:expense_tracker/data/database/models/transactions.dart';
 import 'package:expense_tracker/di/init_get_it.dart';
 import 'package:expense_tracker/domain/entity/category_type.dart';

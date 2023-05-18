@@ -1,6 +1,7 @@
 import 'package:expense_tracker/presentation/theme/colors.dart';
 import 'package:expense_tracker/presentation/theme/ui_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CategoryTile extends StatelessWidget {
   const CategoryTile({
@@ -17,7 +18,7 @@ class CategoryTile extends StatelessWidget {
   final String name;
   final int transactionCount;
   final String amount;
-  final IconData icon;
+  final String icon;
   final Color color;
   final String percentage;
   final void Function() onTap;
@@ -42,10 +43,11 @@ class CategoryTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(defaultPadding * 0.7),
                 color: color.withOpacity(0.2),
               ),
-              child: Icon(
+              child: SvgPicture.asset(
                 icon,
-                size: 32.0,
-                color: color,
+                width: 32,
+                height: 32,
+                colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
               ),
             ),
             const SizedBox(width: 8),

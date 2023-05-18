@@ -173,7 +173,7 @@ class DetailedAnalyticsPage extends StatelessWidget {
                       name: "Food",
                       transactionCount: 24,
                       amount: "\$400",
-                      icon: Icons.circle,
+                      icon: "",
                       color: red,
                       percentage: "20%",
                       onTap: () {},

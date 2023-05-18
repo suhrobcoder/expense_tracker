@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:expense_tracker/data/database/app_database.dart';
+import 'package:expense_tracker/data/database/models/categories.dart';
 import 'package:expense_tracker/data/database/models/categories.dart';
 import 'package:expense_tracker/data/database/models/wallets.dart';
 import 'package:expense_tracker/domain/entity/category_type.dart';
