@@ -33,7 +33,7 @@ class BudgetsPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 16),
-                            CustomBackButton(onTap: () {}),
+                            const CustomBackButton(),
                             const SizedBox(height: 16),
                             Text(
                               "Monthly budget",

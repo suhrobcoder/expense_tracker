@@ -28,6 +28,11 @@ class TransactionRepositoryImpl extends TransactionRepository {
   }
 
   @override
+  Stream<double> budgets() {
+    return dao.getBudgetUse();
+  }
+
+  @override
   Stream<double> incomes() {
     return dao.incomes();
   }

@@ -42,12 +42,14 @@ class StatisticsPage extends StatelessWidget {
                               sideTitles: SideTitles(
                                 showTitles: true,
                                 reservedSize: 56,
-                                getTitlesWidget: (value, meta) =>
-                                    Text(value > 1000000
-                                        ? "${value / 1000000} M"
-                                        : value > 1000
-                                            ? "${value / 1000} K"
-                                            : value.toString()),
+                                getTitlesWidget: (value, meta) => Text(
+                                  value > 1000000
+                                      ? "${value / 1000000} M"
+                                      : value > 1000
+                                          ? "${value / 1000} K"
+                                          : value.toString(),
+                                  maxLines: 1,
+                                ),
                               ),
                             ),
                             bottomTitles: AxisTitles(

@@ -1,6 +1,7 @@
 import 'package:expense_tracker/data/database/app_database.dart';
 import 'package:expense_tracker/data/database/models/categories.dart';
 import 'package:expense_tracker/data/database/dao/category_dao.dart';
+import 'package:expense_tracker/domain/entity/category_type.dart';
 import 'package:expense_tracker/domain/repository/category_repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -21,8 +22,8 @@ class CategoryRepositoryImpl extends CategoryRepository {
   }
 
   @override
-  Stream<List<Category>> watch() {
-    return dao.watch();
+  Stream<List<Category>> watch({required CategoryType type}) {
+    return dao.watch(type: type);
   }
 
   CategoriesCompanion _mapCategory(Category category) {

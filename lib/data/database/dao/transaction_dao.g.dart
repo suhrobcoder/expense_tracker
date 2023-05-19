@@ -7,4 +7,5 @@ mixin _$TransactionDaoMixin on DatabaseAccessor<AppDatabase> {
   $CategoriesTable get categories => attachedDatabase.categories;
   $WalletsTable get wallets => attachedDatabase.wallets;
   $TransactionsTable get transactions => attachedDatabase.transactions;
+  $BudgetsTable get budgets => attachedDatabase.budgets;
 }

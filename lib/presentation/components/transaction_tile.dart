@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:expense_tracker/presentation/theme/colors.dart';
 import 'package:expense_tracker/presentation/theme/ui_constants.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class TransactionTile extends StatelessWidget {
 
   final String title;
   final String category;
-  final String amount;
+  final double amount;
   final String icon;
   final Color color;
   final void Function() onTap;
@@ -63,14 +65,19 @@ class TransactionTile extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            const Icon(Icons.arrow_outward, color: red),
+            amount > 0
+                ? Transform.rotate(
+                    angle: pi,
+                    child: const Icon(Icons.arrow_outward, color: green))
+                : const Icon(Icons.arrow_outward, color: red),
             SizedBox(
               width: 96,
               child: Text(
-                amount,
+                amount.toString(),
                 textAlign: TextAlign.end,
-                style: textTheme.bodyLarge
-                    ?.copyWith(color: red, fontWeight: FontWeight.w600),
+                style: textTheme.bodyLarge?.copyWith(
+                    color: amount > 0 ? green : red,
+                    fontWeight: FontWeight.w600),
               ),
             ),
           ],

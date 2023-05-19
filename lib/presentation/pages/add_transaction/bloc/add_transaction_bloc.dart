@@ -37,8 +37,13 @@ class AddTransactionBloc
           categories: event.categories,
           selectedCategory: event.categories.first));
     });
-    on<SelectType>((event, emit) {
+    on<SelectType>((event, emit) async {
       emit(state.copyWith(type: event.type));
+      await _categorySubscription.cancel();
+      _categorySubscription =
+          categoryRepository.watch(type: state.type).listen((categories) {
+        add(_CategoryLoadedEvent(categories));
+      });
     });
     on<SelectCategory>((event, emit) {
       emit(state.copyWith(selectedCategory: event.category));
@@ -46,10 +51,11 @@ class AddTransactionBloc
     on<ExecuteAdd>((event, emit) async {
       final validated = state.formKey.currentState?.validate() ?? false;
       if (validated) {
+        final amount = double.parse(state.amountController.text);
         final transaction = Transaction(
           id: 0,
           name: state.nameController.text,
-          amount: double.parse(state.amountController.text),
+          amount: state.type == CategoryType.income ? amount : -amount,
           categoryId: state.selectedCategory!.id,
           walletId: state.selectedWallet!.id,
           type: state.type,
@@ -62,7 +68,8 @@ class AddTransactionBloc
     _walletSubscription = walletRepository.watch().listen((wallets) {
       add(_WalletsLoadedEvent(wallets));
     });
-    _categorySubscription = categoryRepository.watch().listen((categories) {
+    _categorySubscription =
+        categoryRepository.watch(type: state.type).listen((categories) {
       add(_CategoryLoadedEvent(categories));
     });
   }

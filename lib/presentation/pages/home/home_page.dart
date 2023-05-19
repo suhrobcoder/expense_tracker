@@ -186,7 +186,7 @@ class HomePage extends StatelessWidget {
                   child: TransactionTile(
                     title: transaction.name,
                     category: transaction.category!.name,
-                    amount: transaction.amount.toString(),
+                    amount: transaction.amount,
                     icon: transaction.category!.icon,
                     color: Color(transaction.category!.color),
                     onTap: () {},

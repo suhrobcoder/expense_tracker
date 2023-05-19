@@ -19,6 +19,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   late final StreamSubscription walletSubscription;
   late final StreamSubscription transactionSubscription;
+  late final StreamSubscription budgetsSubscription;
   late final StreamSubscription incomesSubscription;
   late final StreamSubscription expensesSubscription;
   late final StreamSubscription savingsSubscription;
@@ -33,6 +34,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     });
     on<_TransactionsLoaded>((event, emit) {
       emit(state.copyWith(latestTransactions: event.transactions));
+    });
+    on<_BudgetLoaded>((event, emit) {
+      print(event.budget);
+      emit(state.copyWith(budget: event.budget));
     });
     on<_IncomeLoaded>((event, emit) {
       emit(state.copyWith(incomes: event.income));
@@ -49,6 +54,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     transactionSubscription =
         transactionRepository.latestTransactions().listen((transactions) {
       add(_TransactionsLoaded(transactions));
+    });
+    budgetsSubscription = transactionRepository.budgets().listen((event) {
+      add(_BudgetLoaded(event));
     });
     incomesSubscription = transactionRepository.incomes().listen((event) {
       add(_IncomeLoaded(event));
@@ -80,6 +88,12 @@ class _TransactionsLoaded extends HomeEvent {
   final List<Transaction> transactions;
 
   _TransactionsLoaded(this.transactions);
+}
+
+class _BudgetLoaded extends HomeEvent {
+  final double budget;
+
+  _BudgetLoaded(this.budget);
 }
 
 class _IncomeLoaded extends HomeEvent {

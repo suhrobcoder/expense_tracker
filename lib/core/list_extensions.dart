@@ -7,7 +7,7 @@ extension ListExtensions<T> on List<T> {
     return chunks;
   }
 
-  double sumOf(double Function(T) block) {
+  double sumOf(double Function(T item) block) {
     var sum = block(this[0]);
     for (int i = 1; i < length; i++) {
       sum += block(this[0]);

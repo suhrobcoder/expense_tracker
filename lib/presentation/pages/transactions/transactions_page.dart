@@ -102,7 +102,7 @@ class TransactionsPage extends StatelessWidget {
                             return TransactionTile(
                               title: element.name,
                               category: element.categoryId.toString(),
-                              amount: element.amount.toString(),
+                              amount: element.amount,
                               icon: element.category!.icon,
                               color: Color(element.category!.color),
                               onTap: () {},

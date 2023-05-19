@@ -51,9 +51,11 @@ class AddBudgetBloc extends Bloc<AddBudgetEvent, AddBudgetState> {
       }
     });
     walletRepository.watch().first.then((value) => add(_WalletsLoaded(value)));
-    categoryRepository.watch().first.then((value) => add(_CategoriesLoaded(value
-        .where((element) => element.type == CategoryType.expense)
-        .toList())));
+    // TODO check this
+    categoryRepository.watch(type: CategoryType.expense).first.then((value) =>
+        add(_CategoriesLoaded(value
+            .where((element) => element.type == CategoryType.expense)
+            .toList())));
   }
 }
 

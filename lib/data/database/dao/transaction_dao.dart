@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:expense_tracker/core/list_extensions.dart';
 import 'package:expense_tracker/data/database/app_database.dart';
+import 'package:expense_tracker/data/database/models/budgets.dart';
 import 'package:expense_tracker/data/database/models/categories.dart';
 import 'package:expense_tracker/data/database/models/transactions.dart';
 import 'package:expense_tracker/domain/entity/category_type.dart';
@@ -9,7 +10,7 @@ import 'package:injectable/injectable.dart';
 part 'transaction_dao.g.dart';
 
 @injectable
-@DriftAccessor(tables: [Transactions, Categories])
+@DriftAccessor(tables: [Transactions, Categories, Budgets])
 class TransactionDao extends DatabaseAccessor<AppDatabase>
     with _$TransactionDaoMixin {
   TransactionDao(super.attachedDatabase);
@@ -50,6 +51,22 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
         .map((row) =>
             row.readTable(transactions)..category = row.readTable(categories))
         .watch();
+  }
+
+  Stream<double> getBudgetUse() {
+    return select(budgets)
+        .addColumns([transactions.amount.sum()])
+        .join([
+          innerJoin(
+              transactions,
+              transactions.categoryId.equalsExp(budgets.categoryId) &
+                  transactions.walletId.equalsExp(budgets.walletId)),
+        ])
+        .map((row) => row.readTable(budgets)
+          ..currentUse = row.read(transactions.amount.sum()) ?? 0.0)
+        .watch()
+        .map((list) =>
+            list.sumOf((budget) => budget.amount - budget.currentUse));
   }
 
   Stream<double> incomes() {

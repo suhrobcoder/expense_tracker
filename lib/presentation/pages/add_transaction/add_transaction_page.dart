@@ -33,6 +33,8 @@ class AddTransactionPage extends StatelessWidget {
                         const EdgeInsets.symmetric(horizontal: defaultPadding),
                     child:
                         BlocConsumer<AddTransactionBloc, AddTransactionState>(
+                      listenWhen: (previous, current) =>
+                          previous.added != current.added,
                       listener: (context, state) {
                         if (state.added) {
                           Navigator.pop(context);
@@ -106,9 +108,6 @@ class AddTransactionPage extends StatelessWidget {
                               TextFormField(
                                 controller: state.amountController,
                                 validator: nonEmptyValidator,
-                                decoration: const InputDecoration(
-                                  suffix: Text("USD"),
-                                ),
                                 keyboardType:
                                     const TextInputType.numberWithOptions(
                                         decimal: true),

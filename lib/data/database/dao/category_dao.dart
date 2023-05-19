@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:expense_tracker/data/database/app_database.dart';
 import 'package:expense_tracker/data/database/models/categories.dart';
+import 'package:expense_tracker/domain/entity/category_type.dart';
 import 'package:injectable/injectable.dart';
 
 part 'category_dao.g.dart';
@@ -19,7 +20,8 @@ class CategoryDao extends DatabaseAccessor<AppDatabase>
     return update(categories).replace(category);
   }
 
-  Stream<List<Category>> watch() {
-    return select(categories).watch();
+  Stream<List<Category>> watch({required CategoryType type}) {
+    return (select(categories)..where((tbl) => tbl.type.equalsValue(type)))
+        .watch();
   }
 }

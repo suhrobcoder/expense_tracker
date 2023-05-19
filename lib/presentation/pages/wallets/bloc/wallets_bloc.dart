@@ -1,3 +1,4 @@
+import 'package:expense_tracker/core/list_extensions.dart';
 import 'package:expense_tracker/data/database/models/wallets.dart';
 import 'package:expense_tracker/domain/repository/wallet_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +14,9 @@ class WalletsBloc extends Bloc<WalletsEvent, WalletsState> {
 
   WalletsBloc(this.repository) : super(WalletsState.initial()) {
     on<_WalletsChanged>((event, emit) {
-      emit(state.copyWith(wallets: event.wallets));
+      emit(state.copyWith(
+          wallets: event.wallets,
+          totalBalance: event.wallets.sumOf((item) => item.currentBalance)));
     });
     listenForWallets();
   }

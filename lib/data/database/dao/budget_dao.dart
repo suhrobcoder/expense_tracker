@@ -35,7 +35,7 @@ class BudgetDao extends DatabaseAccessor<AppDatabase> with _$BudgetDaoMixin {
           innerJoin(categories, categories.id.equalsExp(budgets.categoryId)),
         ])
         .map((row) => row.readTable(budgets)
-          ..currentUse = row.read(transactions.amount.sum()) ?? -1.0
+          ..currentUse = row.read(transactions.amount.sum()) ?? 0.0
           ..category = row.readTable(categories))
         .watch();
   }
